@@ -18,6 +18,9 @@ cmake -S ~/dev/whisper.cpp-src -B ~/dev/whisper.cpp-src/build -DCMAKE_BUILD_TYPE
 cmake --build ~/dev/whisper.cpp-src/build -j
 cmake --install ~/dev/whisper.cpp-src/build --prefix /usr/local   # puts whisper-cli on PATH
 mkdir -p models
+curl -L -o models/ggml-small.en.bin \
+  https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin
+# optional, for non-English audio:
 curl -L -o models/ggml-small.bin \
   https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin
 ```
@@ -49,10 +52,12 @@ venv/bin/python video_remove_segment.py input.mp4 output.mp4 <start> <end>
 ### Transcribe
 
 ```bash
-./transcribe.py input.mp4 [--output-dir DIR] [--model PATH] [--language auto|en|fa|...] [--threads N]
+./transcribe.py input.mp4 [--output-dir DIR] [--model PATH] [--language en|auto|...] [--threads N]
 ```
 
-Writes `<name>.txt` and `<name>.srt` to `cropped/` by default. Accepts any video or audio file ffmpeg can read. Language is auto-detected by default; the model is multilingual.
+Writes `<name>.txt` and `<name>.srt` to `cropped/` by default. Accepts any video or audio file ffmpeg can read.
+
+Default is English with the `small.en` model. `--language auto` detects from the first 30 s only and locks that language for the whole file, so a recording with a non-English opening will be mis-transcribed throughout. For non-English audio, pass the language code and use the multilingual `models/ggml-small.bin`.
 
 ## Time Format
 

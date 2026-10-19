@@ -8,7 +8,7 @@ import sys
 import tempfile
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_MODEL = os.path.join(SCRIPT_DIR, 'models', 'ggml-small.bin')
+DEFAULT_MODEL = os.path.join(SCRIPT_DIR, 'models', 'ggml-small.en.bin')
 DEFAULT_OUTPUT_DIR = os.path.join(SCRIPT_DIR, 'cropped')
 
 
@@ -44,7 +44,7 @@ def extract_audio(input_path, wav_path):
     subprocess.run(cmd, check=True)
 
 
-def transcribe(input_path, output_dir, model_path, language='auto', threads=None):
+def transcribe(input_path, output_dir, model_path, language='en', threads=None):
     """
     Transcribe a video or audio file to .txt and .srt using whisper.cpp.
 
@@ -115,8 +115,8 @@ def main():
 Examples:
   %(prog)s cropped/clip_edited.mp4
   %(prog)s recording.m4a --output-dir transcripts
-  %(prog)s clip.mp4 --language en --model models/ggml-small.en.bin
-  %(prog)s clip.mp4 --model models/ggml-medium.bin
+  %(prog)s clip.mp4 --language auto --model models/ggml-small.bin
+  %(prog)s clip.mp4 --model models/ggml-medium.en.bin
         """
     )
 
@@ -124,9 +124,10 @@ Examples:
     parser.add_argument('--output-dir', default=DEFAULT_OUTPUT_DIR,
                         help='Directory for .txt and .srt output (default: cropped/)')
     parser.add_argument('--model', default=DEFAULT_MODEL,
-                        help='Path to ggml whisper model (default: models/ggml-small.bin)')
-    parser.add_argument('--language', default='auto',
-                        help="Language code (e.g. en, fa), or 'auto' to detect (default: auto)")
+                        help='Path to ggml whisper model (default: models/ggml-small.en.bin)')
+    parser.add_argument('--language', default='en',
+                        help="Language code, or 'auto' to detect from the first 30 s (default: en). "
+                             "Note: auto locks the language for the whole file.")
     parser.add_argument('--threads', type=int, default=None,
                         help='CPU threads to use (default: all cores)')
 
