@@ -89,6 +89,7 @@ def transcribe(input_path, output_dir, model_path, language='auto', threads=None
                 '-otxt', '-osrt',
                 '-of', output_base,
                 '-np',  # no progress prints; keep output to the transcript
+                '-mc', '0',  # no context carry-over between windows; prevents repetition loops
             ]
             if threads:
                 cmd += ['-t', str(threads)]

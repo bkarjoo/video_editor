@@ -9,7 +9,8 @@
 - Pulled `video_remove_segment.py` and `remove_segment.sh` from remote (committed elsewhere).
 - Rewrote README; added PROJECT_HISTORY.md and TODO.md.
 - Tested trim and fade on a 32-minute Zoom recording: 3:24.5–21:49 cut took ~1.5 min.
-- Tested transcriber on a 10 s clip: Arabic auto-detected and transcribed correctly; ~0.9× real time on Intel CPU (16 threads).
+- Tested transcriber on a 10 s clip: Arabic auto-detected and transcribed correctly.
+- Transcribed the full 18:24 cut: 6.5 min on Intel CPU (~0.35× real time), 428 segments. Opening/closing clean; some repetition-loop hallucination mid-opening.
 
 ## 2025-07-29
 
