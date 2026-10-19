@@ -7,5 +7,5 @@
 - Use `ffmpeg -c copy` for trims without fades (fast, lossless).
 - Merge duplicated `parse_time()` into a shared module; reject values like `1:75`.
 - Close clips in `finally` so files are released on error.
-- Try `ggml-medium.bin` if small accuracy is insufficient (roughly 3× slower).
+- Try `ggml-medium.bin` for mixed Arabic/English recordings; `small` sometimes hears English as Arabic (roughly 3× slower).
 - Transcription runs ~real time on this Intel CPU; consider `-DGGML_METAL=ON` or faster-whisper if too slow.
