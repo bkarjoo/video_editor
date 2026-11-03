@@ -4,6 +4,7 @@
 
 - Cut and transcribed a second Zoom recording (Oct 23): 3:19–20:20, 17:01 long. English body clean; same tail hallucination (one sentence ×5 in the Arabic closing).
 - Added `dedupe_segments()` to `transcribe.py`: collapses runs of identical consecutive segments in `.txt` and `.srt` after whisper runs. Applied to today's output.
+- Cut and transcribed a third recording (Oct 30): 3:07.5–24:27, 21:19.5 long. Dedupe removed 2 segments automatically; no hallucination run in the result.
 
 ## 2026-10-19
 
