@@ -9,7 +9,7 @@ import tempfile
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_MODEL = os.path.join(SCRIPT_DIR, 'models', 'ggml-small.en.bin')
-DEFAULT_OUTPUT_DIR = os.path.join(SCRIPT_DIR, 'cropped')
+DEFAULT_OUTPUT_DIR = os.path.join(SCRIPT_DIR, 'transcripts')
 
 
 def find_whisper():
@@ -173,7 +173,7 @@ Examples:
 
     parser.add_argument('input', help='Input video or audio file path')
     parser.add_argument('--output-dir', default=DEFAULT_OUTPUT_DIR,
-                        help='Directory for .txt and .srt output (default: cropped/)')
+                        help='Directory for .txt and .srt output (default: transcripts/)')
     parser.add_argument('--model', default=DEFAULT_MODEL,
                         help='Path to ggml whisper model (default: models/ggml-small.en.bin)')
     parser.add_argument('--language', default='en',

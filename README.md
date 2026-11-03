@@ -55,7 +55,7 @@ venv/bin/python video_remove_segment.py input.mp4 output.mp4 <start> <end>
 ./transcribe.py input.mp4 [--output-dir DIR] [--model PATH] [--language en|auto|...] [--threads N]
 ```
 
-Writes `<name>.txt` and `<name>.srt` to `cropped/` by default. Accepts any video or audio file ffmpeg can read.
+Writes `<name>.txt` and `<name>.srt` to `transcripts/` by default. Accepts any video or audio file ffmpeg can read.
 
 Default is English with the `small.en` model. `--language auto` detects from the first 30 s only and locks that language for the whole file, so a recording with a non-English opening will be mis-transcribed throughout. For non-English audio, pass the language code and use the multilingual `models/ggml-small.bin`.
 
@@ -67,7 +67,8 @@ Default is English with the `small.en` model. `--language auto` detects from the
 
 ## Layout
 
-- `cropped/` — finished cuts and transcripts (not tracked in git)
+- `cropped/` — final cut videos for YouTube upload only; nothing else goes here (not tracked in git)
+- `transcripts/` — `.txt` and `.srt` transcripts (not tracked in git)
 - `models/` — Whisper models (not tracked in git)
 
 ## Requirements
