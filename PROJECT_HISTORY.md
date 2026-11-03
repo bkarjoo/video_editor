@@ -1,5 +1,10 @@
 # Project History
 
+## 2026-11-03
+
+- Cut and transcribed a second Zoom recording (Oct 23): 3:19–20:20, 17:01 long. English body clean; same tail hallucination (one sentence ×5 in the Arabic closing).
+- Added `dedupe_segments()` to `transcribe.py`: collapses runs of identical consecutive segments in `.txt` and `.srt` after whisper runs. Applied to today's output.
+
 ## 2026-10-19
 
 - Added `transcribe.py`: extracts audio with ffmpeg, transcribes with whisper.cpp, writes `.txt` and `.srt` to `cropped/`.

@@ -44,6 +44,53 @@ def extract_audio(input_path, wav_path):
     subprocess.run(cmd, check=True)
 
 
+def dedupe_segments(output_base):
+    """
+    Collapse runs of identical consecutive segments in the .txt and .srt outputs.
+    Whisper hallucinates one sentence over and over on non-speech or foreign-language
+    stretches; real speech does not repeat a full segment verbatim.
+
+    Args:
+        output_base (str): Output path without extension (same as passed to whisper -of)
+
+    Returns:
+        int: Number of segments removed
+    """
+    removed = 0
+
+    txt_path = output_base + '.txt'
+    if os.path.exists(txt_path):
+        with open(txt_path, encoding='utf-8') as f:
+            lines = f.read().splitlines()
+        kept = []
+        for line in lines:
+            if kept and line.strip() and line.strip() == kept[-1].strip():
+                removed += 1
+                continue
+            kept.append(line)
+        with open(txt_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(kept) + '\n')
+
+    srt_path = output_base + '.srt'
+    if os.path.exists(srt_path):
+        with open(srt_path, encoding='utf-8') as f:
+            blocks = [b.split('\n') for b in f.read().strip().split('\n\n') if b.strip()]
+        kept = []
+        prev_text = None
+        for parts in blocks:
+            text = '\n'.join(parts[2:]).strip()
+            if text and text == prev_text:
+                continue
+            prev_text = text
+            kept.append(parts)
+        for i, parts in enumerate(kept, 1):
+            parts[0] = str(i)
+        with open(srt_path, 'w', encoding='utf-8') as f:
+            f.write('\n\n'.join('\n'.join(p) for p in kept) + '\n')
+
+    return removed
+
+
 def transcribe(input_path, output_dir, model_path, language='en', threads=None):
     """
     Transcribe a video or audio file to .txt and .srt using whisper.cpp.
@@ -94,6 +141,10 @@ def transcribe(input_path, output_dir, model_path, language='en', threads=None):
             if threads:
                 cmd += ['-t', str(threads)]
             subprocess.run(cmd, check=True)
+
+        removed = dedupe_segments(output_base)
+        if removed:
+            print(f"Removed {removed} repeated segment(s)")
 
         print(f"Transcript saved to: {output_base}.txt")
         print(f"Subtitles saved to:  {output_base}.srt")
