@@ -3,6 +3,7 @@
 ## 2026-11-09
 
 - Migrated `TODO.md` to Northstar project `video_editor` (11 tasks); deleted `TODO.md`; added `CLAUDE.md` naming the project.
+- Cut and transcribed a fourth recording (Nov 6, gratitude khutba): 3:08–26:58, 23:50 long. Transcription 5:17; dedupe removed 1 segment; no hallucination run.
 
 ## 2026-11-03
 
