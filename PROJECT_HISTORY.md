@@ -1,5 +1,9 @@
 # Project History
 
+## 2026-11-09
+
+- Migrated `TODO.md` to Northstar project `video_editor` (11 tasks); deleted `TODO.md`; added `CLAUDE.md` naming the project.
+
 ## 2026-11-03
 
 - Cut and transcribed a second Zoom recording (Oct 23): 3:19–20:20, 17:01 long. English body clean; same tail hallucination (one sentence ×5 in the Arabic closing).
